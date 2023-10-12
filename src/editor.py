@@ -9,9 +9,6 @@ file_dialog_open = False
 class TextEditor:
     filepath = os.path.join(os.getcwd(), "src/themes.json")
 
-    # LGRAY = '#3e4042'  # button color effects in the title bar (Hex color)
-    # DGRAY = '#25292e'  # window background color               (Hex color)
-    # RGRAY = '#10121f'  # title bar color                       (Hex color)
     def __init__(self, filepath_=None):
         if filepath_:
             TextEditor.filepath = filepath_
@@ -35,16 +32,21 @@ class TextEditor:
         self.edit_menu.add_command(label="Clear", command=self.clear_text)
         self.text = tk.Text(self.root)
 
+
+        self.text.bind("<Tab>", self.insert_spaces)  # Bind the Tab key press event to insert 4 spaces
+
         self.themes_menu = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label="Themes", menu=self.themes_menu)
         self.themes_menu.add_command(label="Dark", command=lambda: self.__set_theme(chosen_theme='dark'))
         self.themes_menu.add_command(label="Light", command=lambda: self.__set_theme(chosen_theme='light'))
 
-        # expand_button = Button(text=' 🗖 ', command=self.maximize_me, bg=self.RGRAY, padx=2, pady=2, bd=0, fg='white',
-        #                        font=("calibri", 13), highlightthickness=0)
         self.text.pack()
-        # expand_button.pack()
-        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.root.protocol(name="WM_DELETE_WINDOW", func=self.on_closing)
+
+    def insert_spaces(self, _):
+        """ Inserts 4 spaces when the Tab key is pressed """
+        self.text.insert(tk.INSERT, chars="    ")
+        return 'break'  # Prevents default tab behavior
 
     def __set_theme(self, chosen_theme: str):
         """
@@ -114,20 +116,6 @@ class TextEditor:
                 self.root.destroy()
         else:
             self.root.destroy()
-
-    # def maximize_me(self):
-    #     if not self.root.maximized:  # if the window was not maximized
-    #         self.root.normal_size = self.root.geometry()
-    #         self.expand_button.config(text=" 🗗 ")
-    #         self.root.geometry(f"{self.root.winfo_screenwidth()}x{self.root.winfo_screenheight()}+0+0")
-    #         self.root.maximized = not self.root.maximized
-    #         # now it's maximized
-    #
-    #     else:  # if the window was maximized
-    #         self.expand_button.config(text=" 🗖 ")
-    #         self.root.geometry(self.root.normal_size)
-    #         self.root.maximized = not self.root.maximized
-    #         # now it is not maximized
 
 
 if __name__ == '__main__':
