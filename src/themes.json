@@ -1,0 +1,17 @@
+
+{
+    "light": {
+        "background": "white",
+        "menu_background": "lightgray",
+        "menu_foreground": "black",
+        "text_background": "white",
+        "text_foreground": "black"
+    },
+    "dark": {
+        "background": "black",
+        "menu_background": "darkgray",
+        "menu_foreground": "white",
+        "text_background": "black",
+        "text_foreground": "white"
+    }
+}
