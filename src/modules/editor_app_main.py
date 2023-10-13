@@ -21,18 +21,26 @@ class TextEditor:
     Methods:
         __init__(self, filepath_=None): Initializes the TextEditor instance.
     """
-    __THEMES_FILEPATH = os.path.join(os.getcwd(), "files/themes.json")
 
-    def __init__(self, filepath_=None):
+    __THEMES_FILEPATH = os.path.abspath(os.path.join(os.getcwd(), "files/themes.json"))
+    __LOGO_FILEPATH = os.path.abspath(os.path.join(os.getcwd(), "files/token.ico"))
+
+    def __init__(self, filepath_=None, logo_filepath=None):
         if filepath_:
             self.__THEMES_FILEPATH = filepath_
+
+        if logo_filepath:
+            self.__LOGO_FILEPATH = logo_filepath
+
 
         with open(self.__THEMES_FILEPATH) as file:
             self.themes = json.load(file)
 
         # defining the settings
         self.root = tk.Tk()
-        self.root.title("Text Editor")
+        self.root.title("Nemesis-XT")
+        self.root.iconbitmap(default=self.__LOGO_FILEPATH)
+
         self.menu = tk.Menu(self.root)
         self.root.config(menu=self.menu)
         self.text = tk.Text(self.root)
@@ -68,5 +76,5 @@ class TextEditor:
 
 
 if __name__ == '__main__':
-    app = TextEditor(filepath_='../../files/themes.json')
+    app = TextEditor(filepath_='../../files/themes.json', logo_filepath='../../files/logo.ico')
     app.root.mainloop()
