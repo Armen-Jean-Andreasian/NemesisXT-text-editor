@@ -1,5 +1,4 @@
-from src.editor import TextEditor
-
+from src.modules.editor_app_main import TextEditor
 
 
 class TextEditorMain(TextEditor):
