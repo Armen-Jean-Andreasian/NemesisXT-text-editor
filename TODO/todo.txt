@@ -1,0 +1,42 @@
+1. Apply the font on startup
+
+
+filename: editor_app_main.py
+class: TextEditor
+method: __init__
+
+
+Example:
+    (to make) ~ line 50:
+        font_name = "Arial"  # Change this to the user's font name
+        font_size = 12  # Change this to the user's font size
+
+    lines 51-53:
+        Sample:
+            def_font_name = tk.font.Font(family='Roman', size=23)
+            self.text = tk.Text(self.root, font=def_font_name)
+            self.text.pack(fill="both", expand=True)  # full-size
+
+        Realization:
+            def_font_name = tk.font.Font(family=font_name, size=font_size)
+            self.text = tk.Text(self.root, font=def_font_name)
+            self.text.pack(fill="both", expand=True)  # full-size
+
+P.S. to see supported fonts
+
+            import tkinter.font as font
+            print(font.families())
+
+------------------------------------------------------------------------------------------------------------------------
+2. Let user choose the font manually
+
+filename: editor_app_main.py
+class: TextEditor
+
+line 89
+
+Let the user click on settings and choose the
+    - font
+    - family
+
+after choice it should be applied to program

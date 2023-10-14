@@ -44,9 +44,11 @@ class TextEditor:
         self.root.iconbitmap(default=self.__LOGO_FILEPATH)
         self.root.geometry("800x600")  # Set your preferred initial window size
 
-        # menu bar
+        # main menu
         self.menu = tk.Menu(self.root)
         self.root.config(menu=self.menu)
+
+        # editor widget
         self.text = tk.Text(self.root)
         self.text.pack(fill="both", expand=True)  # full-size
 
@@ -62,19 +64,19 @@ class TextEditor:
         self.text.bind("<Shift-Tab>", keyboard_settings.tab_backward)  # Bind the Tab key press event to insert 4 spaces
         self.text.bind("<Control-MouseWheel>", font_settings.change_font_size)  # Font size adjustment Ctrl + Wheel
 
-        # menu-bar
+        # File tab
         self.file_menu = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label="File", menu=self.file_menu)
         self.file_menu.add_command(label="Open", command=file_manager.open_file)
         self.file_menu.add_command(label="Save", command=file_manager.save_file)
         self.file_menu.add_command(label="Exit", command=file_manager.on_closing)
 
-        # editor
+        # Edit tab
         self.edit_menu = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label="Edit", menu=self.edit_menu)
         self.edit_menu.add_command(label="Clear", command=text_settings.clear_text)
 
-        # themes
+        # Themes tab
         self.themes_menu = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label="Themes", menu=self.themes_menu)
         self.themes_menu.add_command(label="Atom", command=lambda: theme_manager.set_theme(chosen_theme='atom'))
@@ -83,6 +85,10 @@ class TextEditor:
         self.themes_menu.add_command(label="Black & White",
                                      command=lambda: theme_manager.set_theme(chosen_theme='black'))
         self.themes_menu.add_command(label="Light", command=lambda: theme_manager.set_theme(chosen_theme='light'))
+
+        # Settings tab
+        self.settings_menu = tk.Menu(self.menu, tearoff=False)
+        self.settings_menu.add_cascade(label="Settings", menu=self.settings_menu)
 
         # exit
         self.root.protocol(name="WM_DELETE_WINDOW", func=file_manager.on_closing)
