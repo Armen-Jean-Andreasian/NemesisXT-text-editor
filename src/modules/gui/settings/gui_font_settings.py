@@ -10,8 +10,7 @@ class FontSettings:
 
     def __init__(self, text: tk.Text):
         self.text = text
-        default_settings = self.__load_font_details()["default-settings"]
-        self.font_size = default_settings["font_size"]
+        self.font_size = self.__load_font_details()["font_size"]
 
         self.text.bind("<Control-MouseWheel>", self.change_font_size)
 
