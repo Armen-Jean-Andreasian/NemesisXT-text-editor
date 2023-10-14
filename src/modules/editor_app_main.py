@@ -52,7 +52,8 @@ class TextEditor:
         text_settings = TextSettings(text=self.text)
 
         # typing
-        self.text.bind("<Tab>", text_settings.insert_spaces)  # Bind the Tab key press event to insert 4 spaces
+        self.text.bind("<Tab>", text_settings.tab_forward)  # Bind the Tab key press event to insert 4 spaces
+        self.text.bind("<Shift-Tab>", text_settings.tab_backward)  # Bind the Tab key press event to insert 4 spaces
 
         # menu-bar
         self.file_menu = tk.Menu(self.menu, tearoff=False)
