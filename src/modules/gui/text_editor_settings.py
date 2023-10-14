@@ -1,12 +1,20 @@
 import tkinter as tk
 from tkinter import font
+import os
+import json
 
 
 class TextSettings:
+    __SETTINGS_FILE_FILEPATH = os.path.abspath(os.path.join(os.getcwd(), "files/settings.json"))
+
     def __init__(self, text: tk.Text):
         self.text = text
-        self.font_size = 22  # Set your initial font size here
+        with open(self.__SETTINGS_FILE_FILEPATH) as settings_file:
+            settings = json.load(settings_file)
 
+            default_settings = settings["default-settings"]  # Set your initial font size here
+
+        self.font_size = default_settings["font_size"]
         self.text.bind("<Control-MouseWheel>", self.change_font_size)
 
         # Get the initial font information
@@ -15,7 +23,6 @@ class TextSettings:
         # Create a separate font configuration to control the size
         self.font_size = font_info.actual()["size"]
         self.text_font = font.nametofont(text.cget("font"))
-
 
     def tab_forward(self, _):
         """

@@ -23,5 +23,5 @@ class ThemeManager:
             """
 
             self.text.configure(bg=current_theme["text_background"], fg=current_theme["text_foreground"])
-            self.text.configure(insertbackground=current_theme["text_foreground"])  # Set cursor color to text color
+            self.text.configure(insertbackground=current_theme["cursor"])  # Set cursor color to text color
 

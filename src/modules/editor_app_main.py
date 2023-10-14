@@ -71,7 +71,9 @@ class TextEditor:
         # themes
         self.themes_menu = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label="Themes", menu=self.themes_menu)
-        self.themes_menu.add_command(label="Dark", command=lambda: theme_manager.set_theme(chosen_theme='dark'))
+        self.themes_menu.add_command(label="Atom", command=lambda: theme_manager.set_theme(chosen_theme='atom'))
+        self.themes_menu.add_command(label="Sublime-Text", command=lambda: theme_manager.set_theme(chosen_theme='sublime-text'))
+        self.themes_menu.add_command(label="Black & White", command=lambda: theme_manager.set_theme(chosen_theme='black'))
         self.themes_menu.add_command(label="Light", command=lambda: theme_manager.set_theme(chosen_theme='light'))
 
         # exit
