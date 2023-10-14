@@ -5,6 +5,9 @@ from src.modules.gui.theme_manager import ThemeManager
 from src.modules.gui.text_editor_settings import TextSettings
 from src.modules.file_managment.file_manager import FileManager
 
+
+from src.modules.gui.settings.gui_keyboard_settings import Keyboard
+
 from files.config import FilePaths
 
 
@@ -48,10 +51,11 @@ class TextEditor:
         theme_manager = ThemeManager(themes=self.themes, text=self.text)
         file_manager = FileManager(text=self.text, root=self.root)
         text_settings = TextSettings(text=self.text)
+        keyboard_settings = Keyboard(text=self.text)
 
         # hotkeys
-        self.text.bind("<Tab>", text_settings.tab_forward)  # Bind the Tab key press event to insert 4 spaces
-        self.text.bind("<Shift-Tab>", text_settings.tab_backward)  # Bind the Tab key press event to insert 4 spaces
+        self.text.bind("<Tab>", keyboard_settings.tab_forward)  # Bind the Tab key press event to insert 4 spaces
+        self.text.bind("<Shift-Tab>", keyboard_settings.tab_backward)  # Bind the Tab key press event to insert 4 spaces
         self.text.bind("<Control-MouseWheel>", text_settings.change_font_size)  # Font size adjustment Ctrl + Wheel
 
         # menu-bar
@@ -61,6 +65,7 @@ class TextEditor:
         self.file_menu.add_command(label="Save", command=file_manager.save_file)
         self.file_menu.add_command(label="Exit", command=file_manager.on_closing)
 
+        # editor
         self.edit_menu = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label="Edit", menu=self.edit_menu)
         self.edit_menu.add_command(label="Clear", command=text_settings.clear_text)
