@@ -23,7 +23,7 @@ class TextEditor:
     """
 
     __THEMES_FILEPATH = os.path.abspath(os.path.join(os.getcwd(), "files/themes.json"))
-    __LOGO_FILEPATH = os.path.abspath(os.path.join(os.getcwd(), "files/window_logo.png"))
+    __LOGO_FILEPATH = os.path.abspath(os.path.join(os.getcwd(), "files/window_logo.ico"))
 
     def __init__(self, filepath_=None, logo_filepath=None):
         if filepath_:
@@ -77,5 +77,5 @@ class TextEditor:
 
 
 if __name__ == '__main__':
-    app = TextEditor(filepath_='../../files/themes.json', logo_filepath='../../files/window_logo.png')
+    app = TextEditor(filepath_='../../files/themes.json', logo_filepath='../../files/window_logo.ico')
     app.root.mainloop()
