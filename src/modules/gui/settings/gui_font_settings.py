@@ -5,18 +5,14 @@ import json
 from files.config import FilePaths
 
 
-class TextSettings:
+class FontSettings:
     __SETTINGS_FILE_FILEPATH = FilePaths().settings_filepath
 
     def __init__(self, text: tk.Text):
         self.text = text
-
-        with open(self.__SETTINGS_FILE_FILEPATH) as settings_file:
-            settings = json.load(settings_file)
-
-            default_settings = settings["default-settings"]  # Set your initial font size here
-
+        default_settings = self.__load_font_details()["default-settings"]
         self.font_size = default_settings["font_size"]
+
         self.text.bind("<Control-MouseWheel>", self.change_font_size)
 
         # Get the initial font information
@@ -26,11 +22,15 @@ class TextSettings:
         self.font_size = font_info.actual()["size"]
         self.text_font = font.nametofont(text.cget("font"))
 
-    def clear_text(self):
+
+    def __load_font_details(self):
         """
-        Clears the content of the text widget.
+        Retrieves the font details from config file.
         """
-        self.text.delete('1.0', tk.END)
+        with open(self.__SETTINGS_FILE_FILEPATH) as settings_file:
+            settings = json.load(settings_file)
+            return settings
+
 
     def change_font_size(self, event):
         if event.delta > 0:
@@ -58,3 +58,12 @@ class TextSettings:
 
         with open(self.__SETTINGS_FILE_FILEPATH, 'w') as settings_file:
             json.dump(settings, settings_file)
+
+
+    @property
+    def get_font_size(self):
+        return self.font_size
+
+    @property
+    def get_font_family(self):
+        pass

@@ -2,7 +2,10 @@ import tkinter as tk
 import json
 
 from src.modules.gui.theme_manager import ThemeManager
-from src.modules.gui.text_editor_settings import TextSettings
+
+from src.modules.gui.settings.text_editor_settings import TextSettings
+from src.modules.gui.settings.gui_font_settings import FontSettings
+
 from src.modules.file_managment.file_manager import FileManager
 
 
@@ -51,12 +54,13 @@ class TextEditor:
         theme_manager = ThemeManager(themes=self.themes, text=self.text)
         file_manager = FileManager(text=self.text, root=self.root)
         text_settings = TextSettings(text=self.text)
+        font_settings = FontSettings(text=self.text)
         keyboard_settings = Keyboard(text=self.text)
 
         # hotkeys
         self.text.bind("<Tab>", keyboard_settings.tab_forward)  # Bind the Tab key press event to insert 4 spaces
         self.text.bind("<Shift-Tab>", keyboard_settings.tab_backward)  # Bind the Tab key press event to insert 4 spaces
-        self.text.bind("<Control-MouseWheel>", text_settings.change_font_size)  # Font size adjustment Ctrl + Wheel
+        self.text.bind("<Control-MouseWheel>", font_settings.change_font_size)  # Font size adjustment Ctrl + Wheel
 
         # menu-bar
         self.file_menu = tk.Menu(self.menu, tearoff=False)
