@@ -32,7 +32,6 @@ class TextEditor:
         if logo_filepath:
             self.__LOGO_FILEPATH = logo_filepath
 
-
         with open(self.__THEMES_FILEPATH) as file:
             self.themes = json.load(file)
 
@@ -40,20 +39,23 @@ class TextEditor:
         self.root = tk.Tk()
         self.root.title("Nemesis-XT")
         self.root.iconbitmap(default=self.__LOGO_FILEPATH)
+        self.root.geometry("800x600")  # Set your preferred initial window size
 
+        # menu bar
         self.menu = tk.Menu(self.root)
         self.root.config(menu=self.menu)
         self.text = tk.Text(self.root)
-        self.text.pack()
+        self.text.pack(fill="both", expand=True)  # full-size
 
         # initialization of subclasses
         theme_manager = ThemeManager(themes=self.themes, text=self.text)
         file_manager = FileManager(text=self.text, root=self.root)
         text_settings = TextSettings(text=self.text)
 
-        # typing
+        # hotkeys
         self.text.bind("<Tab>", text_settings.tab_forward)  # Bind the Tab key press event to insert 4 spaces
         self.text.bind("<Shift-Tab>", text_settings.tab_backward)  # Bind the Tab key press event to insert 4 spaces
+        self.text.bind("<Control-MouseWheel>", text_settings.change_font_size)  # Font size adjustment Ctrl + Wheel
 
         # menu-bar
         self.file_menu = tk.Menu(self.menu, tearoff=False)

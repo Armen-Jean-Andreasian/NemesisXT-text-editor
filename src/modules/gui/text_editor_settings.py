@@ -1,9 +1,21 @@
 import tkinter as tk
+from tkinter import font
 
 
 class TextSettings:
     def __init__(self, text: tk.Text):
         self.text = text
+        self.font_size = 22  # Set your initial font size here
+
+        self.text.bind("<Control-MouseWheel>", self.change_font_size)
+
+        # Get the initial font information
+        font_info = font.nametofont(text.cget("font"))
+
+        # Create a separate font configuration to control the size
+        self.font_size = font_info.actual()["size"]
+        self.text_font = font.nametofont(text.cget("font"))
+
 
     def tab_forward(self, _):
         """
@@ -43,9 +55,22 @@ class TextSettings:
 
         return 'break'
 
-
     def clear_text(self):
         """
         Clears the content of the text widget.
         """
         self.text.delete('1.0', tk.END)
+
+    def change_font_size(self, event):
+        if event.delta > 0:
+            self.font_size += 1
+        else:
+            self.font_size -= 1
+
+        # Create a new font with the updated size
+        font_name = self.text.cget("font")
+        font_name = font.nametofont(font_name)
+        font_name.configure(size=self.font_size)
+
+        # Update the text widget's font
+        self.text.configure(font=font_name)
