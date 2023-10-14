@@ -1,10 +1,11 @@
 import tkinter as tk
 import json
-import os
 
 from src.modules.gui.theme_manager import ThemeManager
 from src.modules.gui.text_editor_settings import TextSettings
 from src.modules.file_managment.file_manager import FileManager
+
+from files.config import FilePaths
 
 
 class TextEditor:
@@ -13,6 +14,8 @@ class TextEditor:
 
     Attributes:
         __THEMES_FILEPATH (str): The default path to the themes configuration file.
+        __LOGO_FILEPATH (str): The default path to logo.
+
         root (tkinter.Tk): The main application window.
         menu (tkinter.Menu): The menu bar for the application.
         text (tkinter.Text): The text editing widget.
@@ -21,17 +24,11 @@ class TextEditor:
     Methods:
         __init__(self, filepath_=None): Initializes the TextEditor instance.
     """
+    __THEMES_FILEPATH = FilePaths().themes_filepath
+    __LOGO_FILEPATH = FilePaths().logo_filepath
 
-    __THEMES_FILEPATH = os.path.abspath(os.path.join(os.getcwd(), "files/themes.json"))
-    __LOGO_FILEPATH = os.path.abspath(os.path.join(os.getcwd(), "files/window_logo.ico"))
-
-    def __init__(self, filepath_=None, logo_filepath=None):
-        if filepath_:
-            self.__THEMES_FILEPATH = filepath_
-
-        if logo_filepath:
-            self.__LOGO_FILEPATH = logo_filepath
-
+    def __init__(self):
+        # loading themes
         with open(self.__THEMES_FILEPATH) as file:
             self.themes = json.load(file)
 
@@ -72,8 +69,10 @@ class TextEditor:
         self.themes_menu = tk.Menu(self.menu, tearoff=False)
         self.menu.add_cascade(label="Themes", menu=self.themes_menu)
         self.themes_menu.add_command(label="Atom", command=lambda: theme_manager.set_theme(chosen_theme='atom'))
-        self.themes_menu.add_command(label="Sublime-Text", command=lambda: theme_manager.set_theme(chosen_theme='sublime-text'))
-        self.themes_menu.add_command(label="Black & White", command=lambda: theme_manager.set_theme(chosen_theme='black'))
+        self.themes_menu.add_command(label="Sublime-Text",
+                                     command=lambda: theme_manager.set_theme(chosen_theme='sublime-text'))
+        self.themes_menu.add_command(label="Black & White",
+                                     command=lambda: theme_manager.set_theme(chosen_theme='black'))
         self.themes_menu.add_command(label="Light", command=lambda: theme_manager.set_theme(chosen_theme='light'))
 
         # exit
@@ -81,5 +80,5 @@ class TextEditor:
 
 
 if __name__ == '__main__':
-    app = TextEditor(filepath_='../../files/themes.json', logo_filepath='../../files/window_logo.ico')
+    app = TextEditor()
     app.root.mainloop()

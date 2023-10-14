@@ -1,14 +1,16 @@
 import tkinter as tk
 from tkinter import font
-import os
 import json
+
+from files.config import FilePaths
 
 
 class TextSettings:
-    __SETTINGS_FILE_FILEPATH = os.path.abspath(os.path.join(os.getcwd(), "files/settings.json"))
+    __SETTINGS_FILE_FILEPATH = FilePaths().settings_filepath
 
     def __init__(self, text: tk.Text):
         self.text = text
+
         with open(self.__SETTINGS_FILE_FILEPATH) as settings_file:
             settings = json.load(settings_file)
 
@@ -81,3 +83,16 @@ class TextSettings:
 
         # Update the text widget's font
         self.text.configure(font=font_name)
+        # Saving user's choice
+        self.save_user_font()
+
+
+    def save_user_font(self):
+        settings = {
+            "default-settings": {
+                "font_size": self.font_size,
+            }
+        }
+
+        with open(self.__SETTINGS_FILE_FILEPATH, 'w') as settings_file:
+            json.dump(settings, settings_file)
