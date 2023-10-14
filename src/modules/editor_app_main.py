@@ -1,15 +1,15 @@
 import tkinter as tk
 import json
 
-from src.modules.gui.theme_manager import ThemeManager
+from src.modules.gui.themes.theme_manager import ThemeManager
 
-from src.modules.gui.settings.text_editor_settings import TextSettings
-from src.modules.gui.settings.gui_font_settings import FontSettings
+from src.modules.gui.functional import StandAloneFunctions
+from src.modules.gui.fonts.gui_font_settings import FontSettings
 
 from src.modules.file_managment.file_manager import FileManager
 
 
-from src.modules.gui.settings.gui_keyboard_settings import Keyboard
+from src.modules.gui.keyboard.gui_keyboard_settings import Keyboard
 
 from files.config import FilePaths
 
@@ -55,7 +55,7 @@ class TextEditor:
         # initialization of subclasses
         theme_manager = ThemeManager(themes=self.themes, text=self.text)
         file_manager = FileManager(text=self.text, root=self.root)
-        text_settings = TextSettings(text=self.text)
+        text_settings = StandAloneFunctions(text=self.text)
         font_settings = FontSettings(text=self.text)
         keyboard_settings = Keyboard(text=self.text)
 

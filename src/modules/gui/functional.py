@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-class TextSettings:
+class StandAloneFunctions:
 
     def __init__(self, text: tk.Text):
         self.text = text
