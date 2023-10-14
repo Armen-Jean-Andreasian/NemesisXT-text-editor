@@ -28,7 +28,10 @@ class FileManager:
         """
         if not self.FILE_DIALOG_OPEN:
             self.FILE_DIALOG_OPEN = True
-            file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+            file_path = filedialog.asksaveasfilename(
+                defaultextension=".txt", filetypes=[("Text Files", "*.txt")], initialfile="NemesisXT-Note.txt")
+
+
             self.FILE_DIALOG_OPEN = False
             if file_path:
                 with open(file_path, 'w') as file:
